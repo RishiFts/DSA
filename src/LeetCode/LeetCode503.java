@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class LeetCode503 {
 
-    static void main() {
+    public static void main(String[] args) {
 
         LeetCode503 leetCode503 = new LeetCode503();
         int[] nums = {1,2,1};
@@ -13,7 +13,7 @@ public class LeetCode503 {
 
     public int[] nextGreaterElements(int[] nums) {
 
-        int num = nums[0];
+       /* int num = nums[0];
         int i=0;
         while(true){
             int max = Integer.MIN_VALUE;
@@ -33,6 +33,26 @@ public class LeetCode503 {
             }
         }
 
-        return nums;
+        return nums;*/
+
+        int n = nums.length;
+        int[] result = new int[n];
+
+        Arrays.fill(result, -1);
+
+        for (int i = 0; i < n; i++) {
+
+            for (int j = 1; j < n; j++) {
+
+                int index = (i + j) % n;
+
+                if (nums[index] > nums[i]) {
+                    result[i] = nums[index];
+                    break;
+                }
+            }
+        }
+
+        return result;
     }
 }
