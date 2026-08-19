@@ -1,5 +1,8 @@
 package LeetCode;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class LeetCode1763 {
 
     static void main() {
@@ -11,18 +14,39 @@ public class LeetCode1763 {
 
     public String longestNiceSubstring(String s) {
 
-        StringBuilder sb = new StringBuilder();
+        int len = s.length();
+        int maxLen = 0;
 
-        for(int i = 0; i < s.length(); i++)
+        for(int i = 0; i < len; i++)
         {
-            char lowerCase = Character.toLowerCase(s.charAt(i));
-            char upperCase = Character.toUpperCase(s.charAt(i));
-            if(s.indexOf(lowerCase) == -1 && s.indexOf(upperCase) == -1)
+            if(niceString(String.valueOf(s.charAt(i))))
             {
-                sb.append(s.charAt(i));
+
+            }
+        }
+    }
+
+    public boolean niceString(String st)
+    {
+        Set<Character> set = new HashSet<>();
+        for(int i=0;i<st.length();i++)
+        {
+            set.add(st.charAt(i));
+        }
+
+        for(int i=0;i<st.length();i++)
+        {
+            if(Character.isLowerCase(st.charAt(i)) &&  set.contains(Character.toLowerCase(st.charAt(i))))
+            {
+                return true;
+            }
+
+            if(Character.isUpperCase(st.charAt(i)) && set.contains(Character.toUpperCase(st.charAt(i))))
+            {
+                return true;
             }
         }
 
-        return sb.toString();
+        return false;
     }
 }
