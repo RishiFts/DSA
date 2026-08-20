@@ -1,7 +1,6 @@
 package LeetCode;
 
 import java.util.HashSet;
-import java.util.Set;
 
 public class LeetCode1763 {
 
@@ -16,19 +15,31 @@ public class LeetCode1763 {
 
         int len = s.length();
         int maxLen = 0;
+        String answer = "";
 
         for(int i = 0; i < len; i++)
         {
-            if(niceString(String.valueOf(s.charAt(i))))
+            for(int j =i+1; j < len; j++)
             {
-
+                String sub = s.substring(i, j+1);
+                if(niceString(sub))
+                {
+                    if(sub.length() > maxLen)
+                    {
+                        maxLen = sub.length();
+                        answer = sub;
+                    }
+                }
             }
         }
+
+        return answer;
     }
 
     public boolean niceString(String st)
     {
-        Set<Character> set = new HashSet<>();
+        HashSet<Character> set = new HashSet<>();
+
         for(int i=0;i<st.length();i++)
         {
             set.add(st.charAt(i));
@@ -36,17 +47,17 @@ public class LeetCode1763 {
 
         for(int i=0;i<st.length();i++)
         {
-            if(Character.isLowerCase(st.charAt(i)) &&  set.contains(Character.toLowerCase(st.charAt(i))))
+            if(Character.isLowerCase(st.charAt(i)) &&  !set.contains(Character.toUpperCase(st.charAt(i))))
             {
-                return true;
+                return false;
             }
 
-            if(Character.isUpperCase(st.charAt(i)) && set.contains(Character.toUpperCase(st.charAt(i))))
+            if(Character.isUpperCase(st.charAt(i)) && !set.contains(Character.toLowerCase(st.charAt(i))))
             {
-                return true;
+                return false;
             }
         }
 
-        return false;
+        return true;
     }
 }
